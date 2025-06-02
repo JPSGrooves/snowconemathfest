@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#00ff88" />
+  <title>SnowCone MathFest</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/styles.css" />
+
+  <!-- Icons -->
+  <link rel="icon" href="/assets/img/icons/icon-192.png" sizes="192x192" />
+  <link rel="icon" href="/assets/img/icons/icon-512.png" sizes="512x512" />
+  <link rel="apple-touch-icon" href="/assets/img/icons/icon-512.png" />
+
+  <!-- Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+</head>
+<body>
+  <main id="app">
+    <div class="menu-wrapper">
+      <div class="menu-frame">
+        <div class="menu-background">
+          <!-- The background image is set in CSS -->
+          <img id="infoTitleBtn"
+               src="assets/img/branding/SnowConeMathFestTitle.png"
+               class="menu-title-top"
+               alt="SnowCone MathFest Title"
+               onclick="openInfoModal()" />
+
+          <div class="menu-label kids">⛺<br>Kids<br>Camping</div>
+          <div class="menu-label quick">🍧<br>QuickServe<br>Pavilion</div>
+          <div class="menu-label tips">🧮<br>MathTips<br>Village</div>
+          <div class="menu-label story">📖<br>StoryMode<br>Forest</div>
+          <div class="menu-label infinity">♾️<br>Infinity Lake</div>
+          <div class="menu-label install" onclick="openCosmicModal()">⚙️ Options</div>
+        </div>
+      </div>
+    </div>
+    <div id="cosmicModal" class="cosmic-modal hidden">
+    <div class="cosmic-modal-inner">
+      <button class="close-modal">✖</button>
+      <div class="tab-header">
+        <button data-tab="profile" class="active">Profile</button>
+        <button data-tab="badges">Badges</button>
+        <button data-tab="sounds">Sounds</button>
+        <button data-tab="version">v0.1</button>
+      </div>
+      
+      <div class="tab-content-area">
+        <div class="tab-content" id="tab-profile">
+          <h2>👨‍💻 Your Profile</h2>
+          <label for="username">MathFest Name:</label>
+          <input id="username" type="text" placeholder="Guest" /><br><br>
+
+          <label>XP Progress:</label>
+          <progress id="xpBar" value="0" max="100"></progress>
+          <span id="xpPercent">0%</span>
+          <br><br>
+
+
+          <h3>⚖️ Gameplay</h3>
+          <label><input type="checkbox" id="hardModeToggle"> Hard Mode?</label><br><br>
+
+          <h3>📂 Save Info</h3>
+          <p>
+            🧠 Your progress is saved <strong>automatically</strong> in your browser.
+          </p>
+          
+          <ul>
+            <li>✅ Works on both desktop and mobile — no account needed</li>
+            <li>💾 Data stays saved as long as you don’t clear browser storage</li>
+            <li>🧪 Your name, XP, badges, and settings are all remembered</li>
+          </ul>
+          
+          <p><strong>To protect your progress:</strong></p>
+          <ul>
+            <li>🖥️ On desktop: avoid clearing cache or using private/incognito mode</li>
+            <li>📱 On Android: tap ⋮ in your browser, then <em>“Add to Home screen”</em> for the best app-like experience</li>
+            <li>📲 On iPhone: use the <strong>Share</strong> icon and <em>“Add to Home Screen”</em></li>
+          </ul>
+          
+          <p>
+            🔄 Future versions may support cloud saves or multiple profiles — for now, it's all local magic ✨
+          </p>
+          <h3>💽 Manual Save Options</h3>
+
+          <!-- 📥 Download Save File -->
+          <button id="downloadSaveBtn">📥 Download Save File</button><br><br>
+          
+          <!-- 📤 Upload Save File -->
+          <label for="uploadSaveInput">📤 Upload Save File</label><br>
+          <input type="file" id="uploadSaveInput" accept=".json" />
+          
+        </div>
+
+
+  
+        <div class="tab-content hidden" id="tab-sounds">
+    
+          <!-- 🔊 Volume Sliders -->
+          <h3>Game Sounds</h3><br>
+          <button id="toggleSoundBtn" class="glow-btn">Mute Sound 🔇</button>
+          <br><br>
+
+
+
+          <h3>🔊SnowCone JukeBox🔊</h3><br>
+          <!-- 🎵 Jukebox Player -->
+          <div class="jukebox">
+            <div id="currentTrack">Loading...</div>
+            <div class="jukebox-controls">
+              <button onclick="rewindTrack()">⏪</button>
+              <button onclick="prevTrack()">⏮️</button>
+              <button onclick="togglePlayPause()">▶️ / ⏸️</button>
+              <button onclick="nextTrack()">⏭️</button>
+              <button onclick="fastForwardTrack()">⏩</button>
+              <button onclick="toggleLoop()">🔁</button>
+            </div>
+            <progress id="trackProgress" value="0" max="100"></progress>
+            <div id="trackTimer">0:00 / 0:00</div>
+          </div>
+        
+          <!-- 🧠 Blurb + Link -->
+          <p style="margin-top: 1em; font-size: 0.9rem; opacity: 0.8;">
+            🎶 <strong>JPS Grooves</strong> is the sound behind SnowCone MathFest.<br>
+            It means the world to me that you'd play this game — and vibe to the music I make.  
+            There are even a few extra tracks here not found in the game itself... 👀<br><br>
+            Enjoy the jams!  
+            <a href="https://soundcloud.com/jpsgrooves" target="_blank">🎵 More on SoundCloud</a>
+          </p>
+        </div>
+
+  
+        <div class="tab-content options-tab-content hidden" id="tab-badges">
+          <h3>🏅 SnowCone Badges</h3>
+          <div id="badgeGrid"></div>
+        </div>
+
+  
+        <div class="tab-content hidden" id="tab-version">
+          <h2>👾 JPS Grooves</h2>
+          <p>
+            Creator of <strong>SnowCone MathFest</strong> — a neon-drenched math arcade where rhythm meets equations.<br><br>
+            📀 Music, 🎨 Art, ✍️ Story, 🎮 Game Design, and 🌌 Vibes by JPS Grooves.<br>
+            This is a solo project powered by passion, pixels, and the ghosts of mathematicians past.
+          </p>
+          <p style="margin-top: 1em;">🌍 Follow JPS:</p>
+          <ul style="list-style: none; padding: 0;">
+            <li><a href="https://jpsgrooves.com" target="_blank">🌌 JPS Grooves</a></li>
+            <li><a href="https://soundcloud.com/jpsgrooves" target="_blank">🎵 SoundCloud</a></li>
+            <li><a href="https://instagram.com/jpsgrooves" target="_blank">📸 Instagram</a></li>
+            <li><a href="https://github.com/jpsgrooves" target="_blank">💻 GitHub</a></li>
+          </ul>
+          <h2>🧠 SnowCone MathFest v0.1</h2>
+          <p>
+            Welcome to the first playable preview of SnowCone MathFest — a neon math odyssey in the making.
+            <br><br>
+            🎉 This is <strong>v0.1</strong>, the foundation of our coneverse.
+          </p>
+          <ul>
+            <li>🌌 <strong>Main Menu</strong> — Grid-locked layout, fully scaled with glowing mode labels</li>
+            <li>🍧 <strong>QuickServe Mode</strong> — Early build logic for fast-paced problem solving</li>
+            <li>♾️ <strong>Infinity Mode</strong> — Placeholder for freeform play</li>
+            <li>📖 <strong>Story Mode</strong> — Launch logic wired in (content coming soon)</li>
+            <li>⛺ <strong>Kids Camp</strong> — Placeholder for matching game mode</li>
+            <li>🎛️ <strong>Scene Manager</strong> — Smooth mode switching and reset logic</li>
+            <li>🧠 <strong>Data Manager</strong> — XP, high scores, badges, settings, and story tracking</li>
+            <li>🔮 <strong>Modal System</strong> — This very menu! Music, Credits, Rules & Version</li>
+          </ul>
+          <p>
+            🍥 You’re part of an evolving project. Expect updates. Expect weirdness. Expect joy.
+            <br>
+            Built with glow, by <a href="https://linktr.ee/jpsgrooves" target="_blank">JPS Grooves</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div id="infoModal" class="info-modal hidden">
+      <div class="info-modal-inner">
+        <button class="close-info-modal" onclick="closeInfoModal()">✖</button>
+        <div class="info-modal-content">
+          <h2>📜 Welcome to SnowCone MathFest</h2>
+          <p>This is a standalone modal, bruh.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 🌈 VITE ENTRY POINT -->
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
